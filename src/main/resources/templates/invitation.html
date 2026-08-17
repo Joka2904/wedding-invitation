@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uz" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('To‘y taklifnomasi')}"></head>
+<body th:attr="data-event-date=${invitation.event.dateTime}">
+
+<header class="hero" id="home">
+    <nav class="nav shell" aria-label="Asosiy navigatsiya">
+        <a class="brand" href="#home" th:text="|${invitation.couple.personOne.substring(0,1)} · ${invitation.couple.personTwo.substring(0,1)}|">M · A</a>
+        <div class="nav-links">
+            <a href="#story">Bizning kunimiz</a>
+            <a href="#details">Tafsilotlar</a>
+            <a class="nav-rsvp" href="#rsvp">Ishtirok</a>
+        </div>
+    </nav>
+
+    <div class="hero-content shell reveal">
+        <p class="eyebrow" th:text="${invitation.greeting}">Hurmatli mehmon</p>
+        <h1>
+            <span th:text="${invitation.couple.personOne}">Malika</span>
+            <span class="ampersand">&amp;</span>
+            <span th:text="${invitation.couple.personTwo}">Aziz</span>
+        </h1>
+        <p class="hero-copy" th:text="${invitation.couple.tagline}">Sizni nikoh to‘yimizga taklif qilamiz.</p>
+
+        <div class="hero-date">
+            <span th:text="${invitation.event.dayName()}">Yakshanba</span>
+            <strong th:text="${invitation.event.longDate()}">20-sentabr 2026</strong>
+            <span th:text="${invitation.event.time()}">17:30</span>
+        </div>
+
+        <a class="button button-primary" href="#rsvp">Ishtirokingizni tasdiqlang</a>
+    </div>
+
+    <div class="hero-decoration decoration-one"></div>
+    <div class="hero-decoration decoration-two"></div>
+</header>
+
+<main>
+    <section class="section welcome" id="story">
+        <div class="shell narrow reveal">
+            <p class="eyebrow">Unutilmas kun</p>
+            <h2>Bu quvonchli kunni siz bilan birga nishonlashni istaymiz.</h2>
+            <p class="lead">
+                Samimiy suhbatlar, quvonchli lahzalar, mazali taomlar va raqslar —
+                eng yaqin insonlarimiz bilan birga. Sizning tashrifingiz kunimizni yanada go‘zal qiladi.
+            </p>
+            <div class="monogram" aria-hidden="true">
+                <span th:text="${invitation.couple.personOne.substring(0,1)}">M</span>
+                <i>&amp;</i>
+                <span th:text="${invitation.couple.personTwo.substring(0,1)}">A</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section details" id="details">
+        <div class="shell">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Marosim</p>
+                <h2>To‘y tafsilotlari</h2>
+            </div>
+
+            <div class="detail-grid">
+                <article class="detail-card reveal">
+                    <span class="detail-number">01</span>
+                    <h3>Qachon</h3>
+                    <p th:text="${invitation.event.fullDate()}">Yakshanba, 20-sentabr 2026</p>
+                    <p th:text="${invitation.event.time()}">17:30</p>
+                </article>
+
+                <article class="detail-card reveal">
+                    <span class="detail-number">02</span>
+                    <h3>Qayerda</h3>
+                    <p th:text="${invitation.event.venue}">Garden House</p>
+                    <p th:text="${invitation.event.address}">Toshkent shahri</p>
+                    <a th:href="${invitation.event.mapUrl}" target="_blank" rel="noopener">Xaritada ochish ↗</a>
+                </article>
+
+                <article class="detail-card reveal">
+                    <span class="detail-number">03</span>
+                    <h3>Libos</h3>
+                    <p th:text="${invitation.event.dressCode}">Bayramona libos</p>
+                    <p>O‘zingizni erkin his qiladigan, chiroyli va bayramona libosda kelishingizni kutamiz.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section countdown-section">
+        <div class="shell narrow reveal">
+            <p class="eyebrow">To‘yimizgacha</p>
+            <div class="countdown" aria-label="To‘ygacha qolgan vaqt">
+                <div><strong id="days">--</strong><span>Kun</span></div>
+                <div><strong id="hours">--</strong><span>Soat</span></div>
+                <div><strong id="minutes">--</strong><span>Daqiqa</span></div>
+                <div><strong id="seconds">--</strong><span>Soniya</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section rsvp-section" id="rsvp">
+        <div class="shell rsvp-layout">
+            <div class="rsvp-copy reveal">
+                <p class="eyebrow">Ishtirokingizni tasdiqlang</p>
+                <h2>Biz bilan birga bo‘lasizmi?</h2>
+                <p>
+                    Ushbu taklifnoma
+                    <strong th:text="${invitation.displayName}">Karimovlar oilasi</strong>
+                    uchun mo‘ljallangan.
+                </p>
+                <p>
+                    Taklifnoma bo‘yicha ko‘pi bilan
+                    <strong th:text="${invitation.maxGuests}">4</strong>
+                    kishi qatnashishi mumkin.
+                </p>
+            </div>
+
+            <form class="rsvp-card reveal"
+                  method="post"
+                  th:action="@{/invite/{code}/rsvp(code=${invitation.code})}"
+                  th:object="${rsvp}">
+
+                <fieldset>
+                    <legend>To‘yda qatnasha olasizmi?</legend>
+                    <label class="choice">
+                        <input type="radio" th:field="*{attendance}" value="YES" required>
+                        <span>Ha, mamnuniyat bilan qatnashamiz</span>
+                    </label>
+                    <label class="choice">
+                        <input type="radio" th:field="*{attendance}" value="NO" required>
+                        <span>Afsuski, qatnasha olmaymiz</span>
+                    </label>
+                </fieldset>
+
+                <label class="field">
+                    <span>Qatnashadiganlar soni</span>
+                    <select th:field="*{guestCount}">
+                        <option value="0">0</option>
+                        <option th:each="n : ${#numbers.sequence(1, invitation.maxGuests)}"
+                                th:value="${n}"
+                                th:text="${n}">1</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    <span>Yoshlarga tilak <small>(ixtiyoriy)</small></span>
+                    <textarea th:field="*{message}" rows="4" maxlength="500"
+                              placeholder="Tilagingiz, ovqatlanish bo‘yicha istaklaringiz yoki biz bilishimiz kerak bo‘lgan boshqa ma’lumot..."></textarea>
+                </label>
+
+                <button class="button button-dark" type="submit">Javobni yuborish</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="shell">
+        <p class="footer-names">
+            <span th:text="${invitation.couple.personOne}">Malika</span>
+            <i>&amp;</i>
+            <span th:text="${invitation.couple.personTwo}">Aziz</span>
+        </p>
+        <p th:text="${invitation.event.numericDate()}">20 · 09 · 2026</p>
+    </div>
+</footer>
+
+<script th:src="@{/js/wedding.js}" defer></script>
+</body>
+</html>

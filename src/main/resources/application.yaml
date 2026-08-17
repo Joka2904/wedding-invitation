@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: wedding-invitation
+  thymeleaf:
+    cache: false
+
+wedding:
+  couple:
+    person-one: "Ali"
+    person-two: "Vali"
+    tagline: "Together with our families, we invite you to celebrate our wedding."
+
+  event:
+    date-time: "2026-09-05T17:30:00"
+    venue: "Shirin Banquet Hall"
+    address: "Tashkent ..."
+    dress-code: "Garden formal"
+    map-url: "https://maps.google.com"
+
+  guests:
+    - code: "7qm8fk2p"
+      display-name: "The Smith Family"
+      greeting: "Dear Smith Family"
+      max-guests: 4
+
+    - code: "d4vid9xk"
+      display-name: "David Jones"
+      greeting: "Dear David"
+      max-guests: 1
+
+    - code: "sarahmark8"
+      display-name: "Sarah & Mark"
+      greeting: "Dear Sarah & Mark"
+      max-guests: 2
