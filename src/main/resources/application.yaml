@@ -5,27 +5,29 @@ spring:
     name: wedding-invitation
   thymeleaf:
     cache: false
+  security:
+    user:
+      name: ${ADMIN_USERNAME}
+      password: ${ADMIN_PASSWORD}
+      roles:
+        - ADMIN
+  datasource:
+    url: jdbc:postgresql://${PGHOST}/${PGDATABASE}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
 
 wedding:
   couple:
     person-one: "Shohjahon"
     person-two: "Aisha"
     tagline: "Yaqinlarimiz davrasida o‘tadigan nikoh to‘yimiz quvonchini siz bilan baham ko‘rishni istaymiz."
-
   event:
     date-time: "2026-09-05T17:30:00"
     venue: "Restaurant Shirin"
     address: "Chingiz Aytmatov Street, 52/7"
     dress-code: "Garden formal"
     map-url: "https://yandex.com/maps/org/shirin/128659427579?si=7rnkjqq5de6h8bah3fhdb25x40"
-
-  guests:
-    - code: "7qm8fk2p"
-      display-name: "Jo'rayev Nodirbek"
-      greeting: "Og'aginam Nodirbek"
-      max-guests: 1
-
-    - code: "d4vid9xk"
-      display-name: "Sadriddin Suyarov"
-      greeting: "Og'aginam Sadriddin aka"
-      max-guests: 1

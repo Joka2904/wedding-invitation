@@ -5,7 +5,7 @@
 
 <header class="hero" id="home">
     <nav class="nav shell" aria-label="Asosiy navigatsiya">
-        <a class="brand" href="#home" th:text="|${invitation.couple.personOne.substring(0,1)} · ${invitation.couple.personTwo.substring(0,1)}|">M · A</a>
+        <a class="brand" href="#home" th:text="|${invitation.couple.personOne.substring(0,2)} · ${invitation.couple.personTwo.substring(0,1)}|">M · A</a>
         <div class="nav-links">
             <a href="#story">Bizning kunimiz</a>
             <a href="#details">Tafsilotlar</a>
@@ -14,7 +14,7 @@
     </nav>
 
     <div class="hero-content shell reveal">
-        <p class="eyebrow" th:text="${invitation.greeting}">Hurmatli mehmon</p>
+        <p class="eyebrow" th:text="${invitation.guest.greeting}">Hurmatli mehmon</p>
         <h1>
             <span th:text="${invitation.couple.personOne}">Malika</span>
             <span class="ampersand">&amp;</span>
@@ -45,7 +45,7 @@
                 eng yaqin insonlarimiz bilan birga. Sizning tashrifingiz kunimizni yanada go‘zal qiladi.
             </p>
             <div class="monogram" aria-hidden="true">
-                <span th:text="${invitation.couple.personOne.substring(0,1)}">M</span>
+                <span th:text="${invitation.couple.personOne.substring(0,2)}">M</span>
                 <i>&amp;</i>
                 <span th:text="${invitation.couple.personTwo.substring(0,1)}">A</span>
             </div>
@@ -104,19 +104,19 @@
                 <h2>Biz bilan birga bo‘lasizmi?</h2>
                 <p>
                     Ushbu taklifnoma
-                    <strong th:text="${invitation.displayName}">Karimovlar oilasi</strong>
+                    <strong th:text="${invitation.guest.displayName}">Karimovlar oilasi</strong>
                     uchun mo‘ljallangan.
                 </p>
                 <p>
                     Taklifnoma bo‘yicha ko‘pi bilan
-                    <strong th:text="${invitation.maxGuests}">4</strong>
+                    <strong th:text="${invitation.guest.maxGuest}">4</strong>
                     kishi qatnashishi mumkin.
                 </p>
             </div>
 
             <form class="rsvp-card reveal"
                   method="post"
-                  th:action="@{/invite/{code}/rsvp(code=${invitation.code})}"
+                  th:action="@{/invite/{code}/rsvp(code=${invitation.guest.code})}"
                   th:object="${rsvp}">
 
                 <fieldset>
@@ -135,7 +135,7 @@
                     <span>Qatnashadiganlar soni</span>
                     <select th:field="*{guestCount}">
                         <option value="0">0</option>
-                        <option th:each="n : ${#numbers.sequence(1, invitation.maxGuests)}"
+                        <option th:each="n : ${#numbers.sequence(1, invitation.guest.maxGuest)}"
                                 th:value="${n}"
                                 th:text="${n}">1</option>
                     </select>

@@ -1,0 +1,6 @@
+PGHOST: tokaido.proxy.rlwy.net:31940
+PGDATABASE: railway
+PGUSER: postgres
+PGPASSWORD: NTyRdCXZCRJNfYAZnAOsbxjFfJnDRAxP
+ADMIN_USERNAME: admin
+ADMIN_PASSWORD: aquafruit

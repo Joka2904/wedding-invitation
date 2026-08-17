@@ -6,8 +6,8 @@
     <p class="eyebrow">Javobingiz qabul qilindi</p>
     <h1 th:if="${rsvp.attendance == 'YES'}">Siz bilan birga bayram qilishni intiqlik bilan kutamiz!</h1>
     <h1 th:unless="${rsvp.attendance == 'YES'}">Xabar berganingiz uchun rahmat.</h1>
-    <p th:text="${invitation.displayName}">Mehmon</p>
-    <a class="button button-dark" th:href="@{/invite/{code}(code=${invitation.code})}">Taklifnomaga qaytish</a>
+    <p th:text="${invitation.guest.displayName}">Mehmon</p>
+    <a class="button button-dark" th:href="@{/invite/{code}(code=${invitation.guest.code})}">Taklifnomaga qaytish</a>
 </main>
 </body>
 </html>

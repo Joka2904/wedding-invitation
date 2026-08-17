@@ -1,12 +1,9 @@
-package uz.joka.wedding.invitation;
+package uz.joka.wedding.model;
 
 import uz.joka.wedding.properties.WeddingProperties;
 
 public record InvitationPage(
-        String code,
-        String displayName,
-        String greeting,
-        int maxGuests,
+        GuestView guest,
         WeddingProperties.Couple couple,
         WeddingProperties.Event event
 ) {}

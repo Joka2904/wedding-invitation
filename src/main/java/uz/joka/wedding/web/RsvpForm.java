@@ -1,14 +1,14 @@
 package uz.joka.wedding.web;
 
+import lombok.Data;
+
+@Data
 public class RsvpForm {
     private String attendance;
-    private Integer guestCount;
+    private Integer guestCount = 1;
     private String message;
 
-    public String getAttendance() { return attendance; }
-    public void setAttendance(String attendance) { this.attendance = attendance; }
-    public Integer getGuestCount() { return guestCount; }
-    public void setGuestCount(Integer guestCount) { this.guestCount = guestCount; }
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
+    public boolean attend() {
+        return "YES".equals(attendance) && guestCount >= 1;
+    }
 }

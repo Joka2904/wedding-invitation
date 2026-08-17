@@ -10,8 +10,7 @@ import java.util.Locale;
 @ConfigurationProperties(prefix = "wedding")
 public record WeddingProperties(
         Couple couple,
-        Event event,
-        List<Guest> guests
+        Event event
 ) {
     public record Couple(String personOne, String personTwo, String tagline) {}
 
@@ -44,11 +43,4 @@ public record WeddingProperties(
             return dateTime.format(DateTimeFormatter.ofPattern("dd · MM · yyyy", DISPLAY_LOCALE));
         }
     }
-
-    public record Guest(
-            String code,
-            String displayName,
-            String greeting,
-            int maxGuests
-    ) {}
 }

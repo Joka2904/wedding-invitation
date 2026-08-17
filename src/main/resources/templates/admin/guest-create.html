@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="uz"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mehmon qo'shish | Admin</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f7f7f5;
+            color: #222;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d8d8d8;
+            border-radius: 8px;
+            font: inherit;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #555;
+        }
+
+        .help {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .error {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #c62828;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 18px;
+            font: inherit;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #222;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #ececec;
+            color: #222;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a th:href="@{/admin/guests}"
+       class="back">
+        ← Mehmonlar ro'yxatiga qaytish
+    </a>
+
+    <h1>Yangi mehmon</h1>
+
+    <div class="subtitle">
+        Mehmon uchun shaxsiy taklifnoma yarating.
+    </div>
+
+
+    <div class="card">
+
+        <form th:action="@{/admin/guests}"
+              th:object="${guest}"
+              method="post">
+
+            <div class="field">
+
+                <label for="displayName">
+                    Mehmon yoki oila nomi
+                </label>
+
+                <input id="displayName"
+                       type="text"
+                       th:field="*{displayName}"
+                       placeholder="Masalan: Karimovlar oilasi"
+                       required>
+
+                <div class="help">
+                    Admin panelda va taklifnomada ko'rinadigan nom.
+                </div>
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('displayName')}"
+                     th:errors="*{displayName}">
+                    Xatolik
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="greeting">
+                    Murojaat
+                </label>
+
+                <input id="greeting"
+                       type="text"
+                       th:field="*{greeting}"
+                       placeholder="Hurmatli Karimovlar oilasi"
+                       required>
+
+                <div class="help">
+                    Taklifnomaning boshida ko'rsatiladi.
+                </div>
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('greeting')}"
+                     th:errors="*{greeting}">
+                    Xatolik
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="maxGuest">
+                    Mehmonlar soni
+                </label>
+
+                <input id="maxGuest"
+                       type="number"
+                       min="1"
+                       max="20"
+                       th:field="*{maxGuest}"
+                       required>
+
+                <div class="help">
+                    Ushbu taklifnoma orqali kelishi mumkin bo'lgan maksimal odamlar soni.
+                </div>
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('maxGuest')}"
+                     th:errors="*{maxGuest}">
+                    Xatolik
+                </div>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Saqlash
+                </button>
+
+                <a th:href="@{/admin/guests}"
+                   class="btn btn-secondary">
+                    Bekor qilish
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
